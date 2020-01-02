@@ -19,6 +19,8 @@ var enemy = [];
 var ballRadius = 30;
 var bulletRadius = 30;
 var numOfBall = 10;
+var count = 0;
+var gameResult;
 //var imageSize = 50;
 
 function drawImage(x, y)
@@ -101,9 +103,10 @@ canvas.addEventListener('touchstart', function(e) {
     }
 }, false);
 
-for(i = 0; i<numOfBall; i++){
-    console.log(i + 'Creat a object');
-    enemy[i] = new Enemy(Math.random() * (canvas.width-2*ballRadius)+ballRadius, Math.random() * (canvas.height-2*ballRadius)+ballRadius, Math.random() * 3, Math.random() * 3);
+function createEnemies(){
+    for(i = 0; i<numOfBall; i++){
+        enemy[i] = new Enemy(Math.random() * (canvas.width-2*ballRadius)+ballRadius, Math.random() * (canvas.height-2*ballRadius)+ballRadius, Math.random() * 3, Math.random() * 3);
+    }
 }
 
 function drawTimeLimit(remainSec){
@@ -125,11 +128,10 @@ function GameStart(){
         button = false;
         state = 1;
         count = 0;
+        createEnemies();
         oldTime = Date.now();
     }
 }
-var count = 0;
-var gameResult;
 
 function GameScreen(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -138,7 +140,6 @@ function GameScreen(){
         enemy[i].draw();
         if(enemy[i].isHit(bullet.x, bullet.y)){
             count++;
-            console.log(count);
         }
     }
     bullet.move();
@@ -174,7 +175,9 @@ function GameEnd(){
         ctx.fillText("Failed", canvas.width / 2, canvas.height / 2);
     }
     if(button){
-        location.reload();
+        // location.reload();
+        state = 0;
+        button = false;
     }
 }
 
