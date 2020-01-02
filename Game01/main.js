@@ -19,7 +19,8 @@ var enemy = [];
 //var ballRadius = 30;
 var fighterW = 50;
 var fighterH = 80;
-var bulletRadius = 20;
+var missileRadius = 20;
+var missileHeight = 70;
 var numOfBall = 10;
 var count = 0;
 var gameResult;
@@ -34,26 +35,31 @@ function drawImage(x, y)
     }
 }
 
-class Bullet{
+class Missile{
     constructor(){
         this.x = canvas.width / 2;
-        this.y = canvas.height - bulletRadius;
+        // this.y = canvas.height - missileRadius;
+        this.y = canvas.height - missileHeight;
         this.visible = true;
     }
     setPos(x){
         this.x = x;
-        this.y = canvas.height - bulletRadius;
+        // this.y = canvas.height - missileRadius;
+        this.y = canvas.height - missileHeight;
     }
     move(){
         this.y -= 5;
     }
     draw(){
         if(this.visible){
+            /*
             ctx.beginPath();
-            ctx.arc(this.x, this.y, bulletRadius, 0, Math.PI*2);
+            ctx.arc(this.x, this.y, missileRadius, 0, Math.PI*2);
             ctx.fillStyle = "#FF0000";
             ctx.fill();
             ctx.closePath();
+            */
+            drawMissile(this.x, this.y);
         }
     }
 }
@@ -80,16 +86,16 @@ class Enemy{
         if(this.x > canvas.width-fighterW) this.xSpeed *= -1;
         if(this.y> canvas.height-fighterH) this.ySpeed *= -1;
     }
-    isHit(bulletX, bulletY){
+    isHit(missileX, missileY){
         /*
-        if(!this.visible || (Math.abs(this.x-bulletX) < bulletRadius + ballRadius && Math.abs(this.y-bulletY) < bulletRadius + ballRadius)){
+        if(!this.visible || (Math.abs(this.x-missileX) < missileRadius + ballRadius && Math.abs(this.y-missileY) < missileRadius + ballRadius)){
             this.visible = false;
             return true;
         }else{
             return false;
         }
         */
-        if(!this.visible || (Math.abs(this.x-bulletX) < bulletRadius + fighterW && Math.abs(this.y-bulletY) < bulletRadius + fighterH)){
+        if(!this.visible || (Math.abs(this.x-missileX) < missileRadius + fighterW && Math.abs(this.y-missileY) < missileRadius + fighterH)){
             this.visible = false;
             return true;
         }else{
@@ -106,18 +112,18 @@ class Enemy{
             ctx.fill();
             ctx.closePath();
             */
-            fighter(this.x, this.y);
+            drawFighter(this.x, this.y);
         }
     }
 }
 
-var bullet = new Bullet();
+var missile = new Missile();
 
 canvas.addEventListener('touchstart', function(e) {
     if (event.targetTouches.length == 1) {
         var rect = e.target.getBoundingClientRect();
         var touch = e.touches[0];
-        bullet.setPos(touch.clientX - rect.left);
+        missile.setPos(touch.clientX - rect.left);
         button = true;
     }
 }, false);
@@ -137,7 +143,20 @@ function drawTimeLimit(remainSec){
     
 }
 
-function fighter(x, y){
+function drawMissile(x, y){
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.lineTo(x - 10, y + 25);
+    ctx.lineTo(x - 10, y + 70);
+    ctx.lineTo(x + 10, y + 70);
+    ctx.lineTo(x + 10, y + 25);
+    ctx.lineTo(x, y);
+    ctx.fillStyle = "#FF0000";
+    ctx.fill();
+    ctx.closePath();
+}
+
+function drawFighter(x, y){
     /*
     ctx.beginPath();
     ctx.moveTo(x - 50, y - 80);
@@ -219,12 +238,12 @@ function GameScreen(){
     for(i = 0; i<numOfBall; i++){
         enemy[i].move();
         enemy[i].draw();
-        if(enemy[i].isHit(bullet.x, bullet.y)){
+        if(enemy[i].isHit(missile.x, missile.y)){
             count++;
         }
     }
-    bullet.move();
-    bullet.draw();
+    missile.move();
+    missile.draw();
     const remainMSec = timeLimit - Date.now() + oldTime;
     const remainSec = (remainMSec / 1000).toFixed(2);
     if(remainSec > 0){
