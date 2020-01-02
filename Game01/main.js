@@ -6,7 +6,7 @@ var container = document.getElementById('wrap');
 sizing();
   
 function sizing() {
-    canvas.height = container.offsetHeight - 100;
+    canvas.height = container.offsetHeight;
     canvas.width = container.offsetWidth;
 }
 
