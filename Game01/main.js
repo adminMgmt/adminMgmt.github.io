@@ -109,13 +109,14 @@ for(i = 0; i<numOfBall; i++){
 function drawTimeLimit(remainSec){
     ctx.font = "38px Arial";
     ctx.fillStyle = "#0095DD";
+    ctx.textAlign = "left";
     ctx.fillText("TimeLimit: " + remainSec, 5, 30);
     
 }
 
 function GameStart(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.font = "38px Arial";
+    ctx.font = "40px Arial";
     ctx.textAlign = "center";
     ctx.fillStyle = "#0095DD";
     ctx.fillText("Game Start", canvas.width / 2, canvas.height / 2);
@@ -161,13 +162,13 @@ function GameEnd(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     if(gameResult){
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.font = "38px Arial";
+        ctx.font = "40px Arial";
         ctx.textAlign = "center";
         ctx.fillStyle = "#0095DD";
         ctx.fillText("Sucessed", canvas.width / 2, canvas.height / 2);
     }else{
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.font = "38px Arial";
+        ctx.font = "40px Arial";
         ctx.textAlign = "center";
         ctx.fillStyle = "#0095DD";
         ctx.fillText("Failed", canvas.width / 2, canvas.height / 2);
