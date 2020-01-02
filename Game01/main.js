@@ -16,8 +16,10 @@ var button = false;
 const timeLimit = 20000;
 var oldTime = Date.now();
 var enemy = [];
-var ballRadius = 30;
-var bulletRadius = 30;
+//var ballRadius = 30;
+var fighterW = 50;
+var fighterH = 80;
+var bulletRadius = 20;
 var numOfBall = 10;
 var count = 0;
 var gameResult;
@@ -67,13 +69,27 @@ class Enemy{
     move(){
         this.x += this.xSpeed;
         this.y += this.ySpeed;
+        /*
         if(this.x < ballRadius) this.xSpeed *= -1;
         if(this.y < ballRadius) this.ySpeed *= -1;
         if(this.x > canvas.width-ballRadius) this.xSpeed *= -1;
         if(this.y> canvas.height-ballRadius) this.ySpeed *= -1;
+        */
+        if(this.x < fighterW) this.xSpeed *= -1;
+        if(this.y < fighterH) this.ySpeed *= -1;
+        if(this.x > canvas.width-fighterW) this.xSpeed *= -1;
+        if(this.y> canvas.height-fighterH) this.ySpeed *= -1;
     }
     isHit(bulletX, bulletY){
+        /*
         if(!this.visible || (Math.abs(this.x-bulletX) < bulletRadius + ballRadius && Math.abs(this.y-bulletY) < bulletRadius + ballRadius)){
+            this.visible = false;
+            return true;
+        }else{
+            return false;
+        }
+        */
+        if(!this.visible || (Math.abs(this.x-bulletX) < bulletRadius + fighterW && Math.abs(this.y-bulletY) < bulletRadius + fighterH)){
             this.visible = false;
             return true;
         }else{
@@ -83,11 +99,14 @@ class Enemy{
     draw(){
         if(this.visible){
             //drawImage(this.x, this.y);
+            /*
             ctx.beginPath();
             ctx.arc(this.x, this.y, ballRadius, 0, Math.PI*2);
             ctx.fillStyle = "#0095DD";
             ctx.fill();
             ctx.closePath();
+            */
+            fighter(this.x, this.y);
         }
     }
 }
@@ -105,7 +124,8 @@ canvas.addEventListener('touchstart', function(e) {
 
 function createEnemies(){
     for(i = 0; i<numOfBall; i++){
-        enemy[i] = new Enemy(Math.random() * (canvas.width-2*ballRadius)+ballRadius, Math.random() * (canvas.height-2*ballRadius)+ballRadius, Math.random() * 3, Math.random() * 3);
+        //enemy[i] = new Enemy(Math.random() * (canvas.width-2*ballRadius)+ballRadius, Math.random() * (canvas.height-2*ballRadius)+ballRadius, Math.random() * 3, Math.random() * 3);
+        enemy[i] = new Enemy(Math.random() * (canvas.width-2*fighterW)+fighterW, Math.random() * (canvas.height-2*fighterH)+fighterH, Math.random() * 3, Math.random() * 3);
     }
 }
 
@@ -115,6 +135,68 @@ function drawTimeLimit(remainSec){
     ctx.textAlign = "left";
     ctx.fillText("TimeLimit: " + remainSec, 5, 50);
     
+}
+
+function fighter(x, y){
+    /*
+    ctx.beginPath();
+    ctx.moveTo(x - 50, y - 80);
+    ctx.lineTo(x + 50, y - 80);
+    ctx.lineTo(x + 50, y + 80);
+    ctx.lineTo(x - 50, y + 80);
+    ctx.lineTo(x - 50, y - 80);
+    ctx.strokeStyle = "#0095DD";
+    ctx.stroke();
+    ctx.closePath();
+    */
+
+    ctx.beginPath();
+    ctx.moveTo(x, y - 80);
+    ctx.lineTo(x - 5, y - 70);
+    ctx.lineTo(x - 5, y - 55);
+    ctx.lineTo(x - 10, y - 45);
+    ctx.lineTo(x - 10, y - 10);
+    ctx.lineTo(x - 48, y + 20);
+    //
+    ctx.lineTo(x - 48, y);
+    ctx.lineTo(x - 50, y);
+    ctx.lineTo(x - 50, y + 50);
+    ctx.lineTo(x - 48, y + 50);
+    //
+    ctx.lineTo(x - 48, y + 40);
+    ctx.lineTo(x - 10, y + 40);
+    ctx.lineTo(x - 10, y + 50);
+    ctx.lineTo(x - 25, y + 65);
+    ctx.lineTo(x - 25, y + 75);
+    ctx.lineTo(x - 10, y + 75);
+    ctx.lineTo(x - 7, y + 60);
+    ctx.lineTo(x - 5, y + 60);
+    ctx.lineTo(x - 3, y + 80);
+    //----------------------------
+    ctx.lineTo(x + 3, y + 80);
+    ctx.lineTo(x + 5, y + 60);
+    ctx.lineTo(x + 7, y + 60);
+    ctx.lineTo(x + 10, y + 75);
+    ctx.lineTo(x + 25, y + 75);
+    ctx.lineTo(x + 25, y + 65);
+    ctx.lineTo(x + 10, y + 50);
+    ctx.lineTo(x + 10, y + 40);
+    ctx.lineTo(x + 48, y + 40);
+    //
+    ctx.lineTo(x + 48, y + 50);
+    ctx.lineTo(x + 50, y + 50);
+    ctx.lineTo(x + 50, y);
+    ctx.lineTo(x + 48, y);
+    //
+    ctx.lineTo(x + 48, y + 20);
+    ctx.lineTo(x + 10, y - 10);
+    ctx.lineTo(x + 10, y - 45);
+    ctx.lineTo(x + 5, y - 55);
+    ctx.lineTo(x + 5, y - 70);
+    
+    ctx.fillStyle = "#FFFFFF";
+    ctx.fill();
+    ctx.closePath();
 }
 
 function GameStart(){
