@@ -58,6 +58,9 @@ class Enemy{
         if(this.x > canvas.width-ballRadius) this.xSpeed *= -1;
         if(this.y> canvas.height-ballRadius) this.ySpeed *= -1;
     }
+    isHit(bulletX, bulletY){
+        if(Math.abs(this.x-bulletX) < bulletRadius + ballRadius && Math.abs(this.y-bulletY) < bulletRadius + ballRadius) this.visible = false;
+    }
     draw(){
         if(this.visible){
             //drawImage(this.x, this.y);
@@ -73,7 +76,6 @@ class Enemy{
 var bullet = new Bullet();
 
 canvas.addEventListener('touchstart', function(e) {
-    // If there's exactly one finger inside this element
     if (event.targetTouches.length == 1) {
         var rect = e.target.getBoundingClientRect();
         var touch = e.touches[0];
@@ -91,11 +93,11 @@ function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     for(i = 0; i<numOfBall; i++){
         enemy[i].move();
+        enemy[i].isHit(bullet.x, bullet.y);
         enemy[i].draw();
     }
     bullet.move();
     bullet.draw();
-    //console.log(bullet.y);
 }
 
 var interval = setInterval(draw, 10);
