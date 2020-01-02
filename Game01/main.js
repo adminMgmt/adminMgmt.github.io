@@ -110,21 +110,20 @@ function createEnemies(){
 }
 
 function drawTimeLimit(remainSec){
-    ctx.font = "38px Arial";
+    ctx.font = "60px Arial";
     ctx.fillStyle = "#0095DD";
     ctx.textAlign = "left";
-    ctx.fillText("TimeLimit: " + remainSec, 5, 30);
+    ctx.fillText("TimeLimit: " + remainSec, 5, 50);
     
 }
 
 function GameStart(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.font = "40px Arial";
+    ctx.font = "60px Arial";
     ctx.textAlign = "center";
     ctx.fillStyle = "#0095DD";
     ctx.fillText("Game Start", canvas.width / 2, canvas.height / 2);
     if(button){
-        console.log('state 1');
         button = false;
         state = 1;
         count = 0;
@@ -165,13 +164,13 @@ function GameEnd(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     if(gameResult){
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.font = "40px Arial";
+        ctx.font = "60px Arial";
         ctx.textAlign = "center";
         ctx.fillStyle = "#0095DD";
         ctx.fillText("Sucessed", canvas.width / 2, canvas.height / 2);
     }else{
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.font = "40px Arial";
+        ctx.font = "60px Arial";
         ctx.textAlign = "center";
         ctx.fillStyle = "#0095DD";
         ctx.fillText("Failed", canvas.width / 2, canvas.height / 2);
@@ -196,4 +195,4 @@ function draw(){
     }
 }
 
-var interval = setInterval(draw, 10);
+setInterval(draw, 10);
