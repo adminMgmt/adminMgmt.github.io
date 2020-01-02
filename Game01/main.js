@@ -82,7 +82,7 @@ canvas.addEventListener('touchstart', function(e) {
       bullet.setPos(touch.clientX - rect.left);
       console.log(bullet.x);
     }
-  }, false);
+}, false);
 
 
 for(i = 0; i<numOfBall; i++){
