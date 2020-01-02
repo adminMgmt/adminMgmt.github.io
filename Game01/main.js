@@ -4,8 +4,8 @@ var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 var container = document.getElementById('wrap');
 sizing();
-  
-function sizing() {
+
+function sizing(){
     canvas.height = container.offsetHeight;
     canvas.width = container.offsetWidth;
 }
@@ -26,8 +26,7 @@ var count = 0;
 var gameResult;
 //var imageSize = 50;
 
-function drawImage(x, y)
-{
+function drawImage(x, y){
     var img = new Image();
     img.src = 'fighter.png'; 
     img.onload = function(){
@@ -119,7 +118,7 @@ class Enemy{
 
 var missile = new Missile();
 
-canvas.addEventListener('touchstart', function(e) {
+canvas.addEventListener('touchstart', function(e){
     if (event.targetTouches.length == 1) {
         var rect = e.target.getBoundingClientRect();
         var touch = e.touches[0];
@@ -140,7 +139,6 @@ function drawTimeLimit(remainSec){
     ctx.fillStyle = "#0095DD";
     ctx.textAlign = "left";
     ctx.fillText("TimeLimit: " + remainSec, 5, 50);
-    
 }
 
 function drawMissile(x, y){
