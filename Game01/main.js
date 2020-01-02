@@ -151,10 +151,12 @@ function GameScreen(){
     }else{
         state = 2;
         gameResult = false;
+        button = false;
     }
     if(count == numOfBall){
         state = 2;
         gameResult = true;
+        button = false;
     }
     count = 0;
 }
@@ -175,7 +177,6 @@ function GameEnd(){
         ctx.fillText("Failed", canvas.width / 2, canvas.height / 2);
     }
     if(button){
-        // location.reload();
         state = 0;
         button = false;
     }
