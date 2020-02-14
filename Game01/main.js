@@ -119,7 +119,7 @@ class Enemy{
 var missile = new Missile();
 
 canvas.addEventListener('touchstart', function(e){
-    if (event.targetTouches.length == 1) {
+    if (e.targetTouches.length == 1) {
         var rect = e.target.getBoundingClientRect();
         var touch = e.touches[0];
         missile.setPos(touch.clientX - rect.left);
@@ -291,6 +291,7 @@ function draw(){
         case 2:
             GameEnd();
             break;
+        default:
     }
 }
 
